@@ -1,0 +1,12 @@
+Spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/BATCHNBACHUNK?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    platform: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true
