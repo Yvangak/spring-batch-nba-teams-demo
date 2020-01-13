@@ -10,6 +10,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -34,7 +35,7 @@ public class BatchChunkConfig {
     @Bean
     public Step processFranchise(ItemReader<Franchise> franchiseReader, ItemProcessor<Franchise,
             FranchiseStats> franchiseProcessor, ItemWriter<FranchiseStats> franchiseWriter) {
-        return stepBuilderFactory.get("FranchiseStatsProcessor").<Franchise, FranchiseStats>chunk(5)
+        return stepBuilderFactory.get("FranchiseStatsStep").<Franchise, FranchiseStats>chunk(5)
                 .reader(franchiseReader)
                 .processor(franchiseProcessor)
                 .writer(franchiseWriter)
@@ -44,6 +45,7 @@ public class BatchChunkConfig {
     @Bean
     public Job job() {
         return jobBuilderFactory.get("FranchiseStatsChunkJob")
+                .incrementer(new RunIdIncrementer())
                 .start(processFranchise(franchiseReader, franchiseProcessor, franchiseWriter))
                 .build();
     }
