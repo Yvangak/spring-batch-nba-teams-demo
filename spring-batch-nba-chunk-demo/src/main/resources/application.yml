@@ -10,3 +10,15 @@ Spring:
       ddl-auto: create
     generate-ddl: true
     show-sql: true
+
+  batch:
+    job:
+      enabled: true
+    initialize-schema: Always
+
+
+
+## Docker helper info
+# -> sudo docker start batch-mysql-db
+# -> sudo docker container exec -it b3930d1af062 bash
+# -> mysql -uroot -ppassword
