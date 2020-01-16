@@ -39,6 +39,7 @@ public class BatchChunkConfig {
                 .reader(franchiseReader)
                 .processor(franchiseProcessor)
                 .writer(franchiseWriter)
+                .allowStartIfComplete(true)
                 .build();
     }
 
